@@ -1,4 +1,4 @@
-package core;
+package rest.core;
 
 import io.restassured.http.ContentType;
 
