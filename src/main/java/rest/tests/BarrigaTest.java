@@ -115,6 +115,23 @@ public class BarrigaTest extends BaseTest {
                 ;
     }
 
+    @Test
+    public void naoDeveInserirMovimentacaoComDataFutura(){
+        Movimentacao movimentacao = getMovimentacaoValida();
+        movimentacao.setData_transacao("20/09/2030");
+
+        given()
+                .header("Authorization", "JWT " + token)
+            .body(movimentacao)
+                .when()
+                .post("/transacoes")
+            .then()
+                .statusCode(400)
+                .body("$", hasSize(1))
+                .body("msg", hasItem("Data da Movimentação deve ser menor ou igual à data atual"))
+        ;
+    }
+
     private Movimentacao getMovimentacaoValida() {
         Movimentacao movimentacao = new Movimentacao();
         movimentacao.setConta_id(2492738);
