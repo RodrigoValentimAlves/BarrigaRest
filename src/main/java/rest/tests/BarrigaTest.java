@@ -144,6 +144,30 @@ public class BarrigaTest extends BaseTest {
         ;
     }
 
+    @Test
+    public void deveCalcularSaldoContas() {
+        given()
+                .header("Authorization", "JWT " + token)
+            .when()
+                .get("/saldo")
+            .then()
+                .statusCode(200)
+                .body("find{it.conta_id == 2342594}.saldo", is("-220.00"))
+        ;
+    }
+
+    @Test
+    public void removerMovimentacao() {
+        given()
+                .header("Authorization", "JWT " + token)
+            .when()
+                .delete("/transacoes/2492739")
+            .then()
+                .statusCode(404)
+                .body("error", is("Não foi encontrada Transacao com id 2492739"))
+        ;
+    }
+
     private Movimentacao getMovimentacaoValida() {
         Movimentacao movimentacao = new Movimentacao();
         movimentacao.setConta_id(2492738);
@@ -156,5 +180,4 @@ public class BarrigaTest extends BaseTest {
 
         return movimentacao;
     }
-
 }
