@@ -80,15 +80,7 @@ public class BarrigaTest extends BaseTest {
 
     @Test
     public void deveInserirMovimentacaoComSucesso(){
-        Movimentacao movimentacao = new Movimentacao();
-        movimentacao.setConta_id(2492738);
-//        mov.setUsuario_id();
-        movimentacao.setDescricao("Teste descrição da movimentação");
-        movimentacao.setEnvolvido("Envolvido na mov");
-        movimentacao.setTipo("REC");
-        movimentacao.setData_transacao("01/01/2025");
-        movimentacao.setData_pagamento("10/06/2025");
-        movimentacao.setStatus(true);
+        Movimentacao movimentacao = getMovimentacaoValida();
 
         given()
                 .header("Authorization", "JWT " + token)
@@ -121,6 +113,19 @@ public class BarrigaTest extends BaseTest {
                         "Situação é obrigatório"
                 ))
                 ;
+    }
+
+    private Movimentacao getMovimentacaoValida() {
+        Movimentacao movimentacao = new Movimentacao();
+        movimentacao.setConta_id(2492738);
+        movimentacao.setDescricao("Teste descrição da movimentação");
+        movimentacao.setEnvolvido("Envolvido na mov");
+        movimentacao.setTipo("REC");
+        movimentacao.setData_transacao("01/01/2025");
+        movimentacao.setData_pagamento("10/06/2025");
+        movimentacao.setStatus(true);
+
+        return movimentacao;
     }
 
 }
